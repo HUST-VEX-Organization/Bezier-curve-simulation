@@ -4,14 +4,14 @@ import math
 from scipy.interpolate import interp1d
 
 # 初始化窗口尺寸和点的列表
-window_width = 360
-window_height = 360
+window_width = 600
+window_height = 600
 points = []
 dragging_point = -1  # 标记当前正在拖动的点的索引，-1 表示没有拖动
 
 # 计算窗口中心坐标
-center_x = window_width // 2
-center_y = window_height // 2
+center_x = 300
+center_y = 480
 
 # 获取起始和终点坐标
 start_x = int(input("请输入起始点的 x 坐标: "))
@@ -76,6 +76,11 @@ while True:
     for j in range(0, window_height, grid_size):
         cv2.line(img, (0, j), (window_width, j), (128, 128, 128), 1)  # 绘制水平线
 
+    cv2.line(img, (120, 120), (120, 480), (128, 128, 128), 2)
+    cv2.line(img, (120, 480), (480, 480), (128, 128, 128), 2)
+    cv2.line(img, (480, 480), (480, 120), (128, 128, 128), 2)
+    cv2.line(img, (480, 120), (120, 120), (128, 128, 128), 2)
+
     # 绘制点
     for p in points:
         cv2.circle(img, (p[0], p[1]), 5, (0, 0, 255), -1)
@@ -108,4 +113,4 @@ print("控制点坐标:")
 for point in waypoints:
     x = point[0] - center_x
     y = center_y - point[1]
-    print(f"({x}, {y})")
+    print(f"{{{x}, {y}}},", end = " ")
